@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div id="userList">
+        <h2>Users</h2>
+        <ul id="users">
+            <!-- List of users will be populated here -->
+        </ul>
+    </div>
+
+    <script>
+        // Fetch users from backend
+        async function fetchUsers() {
+            const token = localStorage.getItem('authToken'); // Assume token is stored in localStorage
+            const response = await fetch('http://localhost:3000/admin/users', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const users = await response.json();
+                const userList = document.getElementById('users');
+                users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user.email;
+                    userList.appendChild(li);
+                });
+            } else {
+                alert('Error fetching users');
+            }
+        }
+
+        // Fetch users on page load
+        fetchUsers();
+    </script>
+</body>
+</html>

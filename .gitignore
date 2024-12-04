@@ -4,5 +4,4 @@ node_modules
 .env
 package-lock.json
 package.json
-/db/
-/middleware/
+db/schema.sql
